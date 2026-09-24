@@ -18,11 +18,11 @@ export function Forro() {
           </span>
         </a>
         <nav className="flex items-center gap-6 text-[0.95rem]">
-          <a href="#cardapio" className="hidden text-cafe underline-offset-4 hover:underline md:inline">Serviços</a>
-          <a href="#como-chegar" className="hidden text-cafe underline-offset-4 hover:underline md:inline">Como chegar</a>
+          <a href="#cardapio" className="hidden min-h-11 items-center text-cafe underline-offset-4 hover:underline md:inline-flex">Serviços</a>
+          <a href="#como-chegar" className="hidden min-h-11 items-center text-cafe underline-offset-4 hover:underline md:inline-flex">Como chegar</a>
           <a
             href={linkWhatsApp()}
-            className="font-bold text-rosa-tinta underline decoration-2 underline-offset-4"
+            className="inline-flex min-h-11 items-center font-bold text-rosa-tinta underline decoration-2 underline-offset-4"
             target="_blank"
             rel="noopener"
           >
@@ -77,7 +77,7 @@ export function Hero() {
                 href={linkWhatsApp('Oi! Vim pelo site e queria marcar um horário.')}
                 target="_blank"
                 rel="noopener"
-                className="font-bold text-rosa-tinta underline decoration-2 underline-offset-4"
+                className="inline-flex min-h-11 items-center font-bold text-rosa-tinta underline decoration-2 underline-offset-4"
               >
                 Falar no WhatsApp
               </a>
