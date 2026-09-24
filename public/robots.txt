@@ -1,0 +1,3 @@
+# Site em aprovação: nada de indexar por enquanto.
+User-agent: *
+Disallow: /
