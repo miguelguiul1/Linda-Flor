@@ -164,7 +164,7 @@ function BarraCelular() {
 
 export function Cardapio() {
   return (
-    <section id="cardapio" className="relative scroll-mt-4 px-4 pt-16 pb-24 md:px-[4vw] md:pt-[7vw] md:pb-[9vw]" aria-labelledby="titulo-cardapio">
+    <section id="cardapio" className="relative scroll-mt-4 px-4 pt-16 pb-4 md:px-[4vw] md:pt-[7vw] md:pb-0" aria-labelledby="titulo-cardapio">
       <div className="grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(19rem,24rem)] md:gap-[5vw]">
         <div>
           <div className="mb-10 md:mb-14 md:pl-[6vw]">

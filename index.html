@@ -12,6 +12,30 @@
       name="description"
       content="Salão de bairro na Av. Juan Esper, 191, Veleiros (zona sul de SP). Manicure e pedicure com hora marcada pelo WhatsApp, de terça a sábado."
     />
+    <!--
+      Dados estruturados para o Google. Só fatos confirmados.
+      Pendentes (ver PLACEHOLDERS.md): "url" (domínio), "openingHoursSpecification" (horário de fechar),
+      "priceRange". Não usar aggregateRating aqui: nota tirada do próprio site não vale para o Google.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": ["BeautySalon", "NailSalon"],
+        "name": "Linda Flor | Espaço Beleza",
+        "image": "/logo-linda-flor.jpg",
+        "telephone": "+55-11-96436-2474",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Av. Juan Esper, 191",
+          "addressLocality": "São Paulo",
+          "addressRegion": "SP",
+          "postalCode": "04771-000",
+          "addressCountry": "BR"
+        },
+        "areaServed": "Veleiros, São Paulo",
+        "sameAs": ["https://www.instagram.com/lindaflorbelezaa/"]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

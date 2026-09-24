@@ -95,3 +95,27 @@
     opacity: 0;
   }
 }
+
+/* Vapor do café: sobe e some. */
+@keyframes vapor {
+  0% {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-14px);
+    opacity: 0;
+  }
+}
+.vapor {
+  animation: vapor 3.9s ease-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .vapor {
+    animation: none;
+    opacity: 0.7;
+  }
+}

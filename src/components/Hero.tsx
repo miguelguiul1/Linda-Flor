@@ -1,3 +1,4 @@
+import { linkGoogle } from '@/data/avaliacoes'
 import { salao, linkWhatsApp } from '@/data/salao'
 import { modoRevisao } from '@/lib/modo'
 import { FitaCrepe } from './FitaCrepe'
@@ -86,7 +87,7 @@ export function Hero() {
 
           {/* nota do Google, circulada à caneta */}
           <a
-            href="https://www.google.com/maps/search/?api=1&query=Linda+Flor+Espa%C3%A7o+Beleza+Av.+Juan+Esper+191"
+            href={linkGoogle}
             target="_blank"
             rel="noopener"
             className="relative w-fit rotate-2 justify-self-start px-10 py-6 text-cafe no-underline md:mr-[6vw] md:justify-self-end"
