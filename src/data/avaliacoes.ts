@@ -8,9 +8,10 @@
 
 export type Avaliacao = { texto: string | null; nome: string | null }
 
+// Copiadas exatamente do Google (com emoji, quebra de linha e pontuação): são as palavras das clientes.
 export const avaliacoes: Avaliacao[] = [
-  { texto: null, nome: null },
-  { texto: null, nome: null },
+  { texto: 'Amei! ❤️\nQualidade nos atendimentos com muita simpatia.', nome: 'Shirley' },
+  { texto: 'Excelente atendimento, ambiente acolhedor e bom papo..Gratidão', nome: 'Cristiane' },
   { texto: null, nome: null },
 ]
 

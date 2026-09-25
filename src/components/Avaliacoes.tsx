@@ -20,12 +20,14 @@ const jeitosCelular = ['-rotate-2', 'rotate-2 -mt-3 ml-6', '-rotate-1 -mt-3']
 
 const fitaPedaco = 'polygon(0 10%, 5% 0, 95% 6%, 100% 0, 98% 50%, 100% 92%, 94% 100%, 6% 94%, 0 100%, 2% 50%)'
 
-function Bilhete({ texto, nome, i }: { texto: string | null; nome: string | null; i: number }) {
+function Bilhete({ texto, nome, i, total }: { texto: string | null; nome: string | null; i: number; total: number }) {
+  // a largura acompanha quantos bilhetes existem: 2 bilhetes ocupam o espaço todo, sem buraco
+  const largura = total >= 3 ? 'md:w-1/3' : total === 2 ? 'md:w-1/2' : 'md:w-2/3'
   return (
-    <figure className={cn('relative w-full max-w-[21rem] md:w-1/3 md:max-w-none', jeitosCelular[i % 3], jeitos[i % 3])} style={{ zIndex: 3 - i }}>
+    <figure className={cn('relative w-full max-w-[21rem] md:max-w-none', largura, jeitosCelular[i % 3], jeitos[i % 3])} style={{ zIndex: i + 1 }}>
       <span className="absolute -top-3 left-1/2 z-10 h-6 w-20 -translate-x-1/2 rotate-3 bg-fita/90" style={{ clipPath: fitaPedaco }} aria-hidden="true" />
       <div className="border-2 border-cafe bg-[#fffdf8] px-5 pt-7 pb-5">
-        <blockquote className="text-[1.02rem] leading-snug">
+        <blockquote className="text-[1.02rem] leading-snug whitespace-pre-line">
           {texto ?? <FitaCrepe tipo="REVISAR" className="rotate-0">COLAR AVALIAÇÃO REAL do Google, sem mudar nada</FitaCrepe>}
         </blockquote>
         <figcaption className="mt-3 font-mao text-[1.7rem] leading-none text-rosa-tinta">
@@ -68,13 +70,13 @@ export function Avaliacoes() {
           {temBilhete && (
             <div className="flex flex-col items-start md:flex-row md:items-start md:pt-10">
               {bilhetes.map((a, i) => (
-                <Bilhete key={i} texto={a.texto} nome={a.nome} i={i} />
+                <Bilhete key={i} texto={a.texto} nome={a.nome} i={i} total={bilhetes.length} />
               ))}
             </div>
           )}
 
           {/* trabalhos de verdade, colados na parede ao lado dos recados */}
-          <div className={cn('relative flex items-start justify-end', temBilhete ? 'mt-6 md:mt-10 md:pr-[4vw]' : 'md:pr-[6vw]')}>
+          <div className={cn('relative flex items-start justify-end', temBilhete ? (bilhetes.length >= 3 ? 'mt-6 md:mt-10 md:pr-[4vw]' : 'mt-6 md:-mt-[2vw] md:justify-center') : 'md:pr-[6vw]')}>
             <FotoColada
               foto="rosa"
               proporcao="1 / 1.05"
