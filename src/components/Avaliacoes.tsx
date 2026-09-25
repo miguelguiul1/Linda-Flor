@@ -28,7 +28,7 @@ function Bilhete({ texto, nome, i, total }: { texto: string | null; nome: string
       <span className="absolute -top-3 left-1/2 z-10 h-6 w-20 -translate-x-1/2 rotate-3 bg-fita/90" style={{ clipPath: fitaPedaco }} aria-hidden="true" />
       <div className="border-2 border-cafe bg-[#fffdf8] px-5 pt-7 pb-5">
         <blockquote className="text-[1.02rem] leading-snug whitespace-pre-line">
-          {texto ?? <FitaCrepe tipo="REVISAR" className="rotate-0">COLAR AVALIAÇÃO REAL do Google, sem mudar nada</FitaCrepe>}
+          {texto ?? <FitaCrepe tipo="COLAR AVALIAÇÃO REAL" className="rotate-0">do Google, sem mudar nada</FitaCrepe>}
         </blockquote>
         <figcaption className="mt-3 font-mao text-[1.7rem] leading-none text-rosa-tinta">
           — {nome ?? <span className="text-cafe-suave">primeiro nome</span>}
@@ -50,7 +50,6 @@ export function Avaliacoes() {
           <h2 id="titulo-avaliacoes" className="font-titulo text-[2.3rem] leading-[1.02] md:text-[3.2vw]">
             Quem senta na cadeira, volta.
           </h2>
-          <FitaCrepe className="mt-2">texto</FitaCrepe>
 
           <NotaGoogle grande className="mt-8 -rotate-1" />
           <p className="mt-3">

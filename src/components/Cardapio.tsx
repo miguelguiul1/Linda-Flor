@@ -42,10 +42,15 @@ function Linha({ s }: { s: Servico }) {
         <Marca marcado={marcado} />
         <span className="flex min-w-0 flex-1 items-end gap-2">
           <span className="font-titulo text-[1.55rem] leading-[1.05] md:text-[1.9rem]">
-            {/* o "+" da Gloock é miudinho: vai na letra do texto */}
+            {/* o "+" da Gloock é miudinho: vai na letra do texto, com espaço de verdade em volta */}
             {s.nome.split(' + ').map((parte, i) => (
               <span key={parte}>
-                {i > 0 && <span className="mx-1 align-[0.08em] font-texto text-[0.75em] font-bold">+</span>}
+                {i > 0 && (
+                  <>
+                    {' '}
+                    <span className="align-[0.08em] font-texto text-[0.75em] font-bold">+</span>{' '}
+                  </>
+                )}
                 {parte}
               </span>
             ))}
@@ -95,7 +100,7 @@ function Tabela() {
           >
             Pergunta pra Márcia
           </a>
-          . <FitaCrepe />
+          .
         </p>
       </div>
     </div>
@@ -158,7 +163,6 @@ export function Cardapio() {
               <span>toca no serviço que ele vai pra comanda</span>
               <Seta className="mt-1 hidden w-12 rotate-[75deg] md:block" />
             </p>
-            <FitaCrepe className="mt-1">texto</FitaCrepe>
 
             {/* fotos coladas na parede, por cima da borda da tabela (desktop) */}
             <FotoColada foto="verde" proporcao="1 / 0.92" foco="center 25%" className="absolute -top-[3vw] right-[1vw] z-20 hidden w-[14vw] rotate-[5deg] md:block" />

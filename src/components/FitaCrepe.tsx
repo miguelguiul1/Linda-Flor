@@ -3,7 +3,7 @@ import { modoRevisao } from '@/lib/modo'
 import { cn } from '@/lib/utils'
 
 /*
-  Etiqueta de fita crepe para pendências: [REVISAR], [DESCOBRIR], [CONFIRMAR], [FOTO].
+  Etiqueta de fita crepe para pendências: [CONFIRMAR], [DESCOBRIR], [COLAR AVALIAÇÃO REAL].
   Só aparece no modo revisão. No modo apresentação some sem deixar buraco.
 */
 
@@ -11,12 +11,12 @@ const bordaRasgada =
   'polygon(0 12%, 3% 0, 97% 4%, 100% 0, 99% 50%, 100% 88%, 96% 100%, 4% 96%, 0 100%, 1% 55%)'
 
 type Props = {
-  tipo?: 'REVISAR' | 'DESCOBRIR' | 'CONFIRMAR' | 'FOTO'
+  tipo?: 'DESCOBRIR' | 'CONFIRMAR' | 'COLAR AVALIAÇÃO REAL'
   children?: ReactNode
   className?: string
 }
 
-export function FitaCrepe({ tipo = 'REVISAR', children, className }: Props) {
+export function FitaCrepe({ tipo = 'CONFIRMAR', children, className }: Props) {
   if (!modoRevisao) return null
   return (
     <span

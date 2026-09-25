@@ -5,8 +5,10 @@ import { Circulo } from './Rabiscos'
 
 /*
   "5,0 · 41 avaliações no Google", circulado à caneta.
-  Nota e contagem ficam na mesma linha, com o "·" no texto de verdade:
-  assim nunca vira "5,041" (leitor de tela, copiar e colar, prévia de link).
+  Tudo em texto corrido (sem flex nos filhos: flex descarta os espaços entre itens),
+  pra leitor de tela e copiar/colar lerem exatamente "5,0 · 41 avaliações no Google".
+  Na versão grande a contagem desce de linha só visualmente (inline-block w-full)
+  e o "·" fica num inline-block de largura zero: some da tela, continua no texto.
 */
 
 export function NotaGoogle({ grande = false, className }: { grande?: boolean; className?: string }) {
@@ -16,14 +18,17 @@ export function NotaGoogle({ grande = false, className }: { grande?: boolean; cl
       href={linkGoogle}
       target="_blank"
       rel="noopener"
-      aria-label={`Nota ${nota} no Google, com ${avaliacoes} avaliações`}
-      className={cn('relative inline-flex w-fit items-baseline gap-x-2 text-cafe no-underline', grande ? 'flex-col px-12 py-9' : 'flex-wrap px-9 py-6', className)}
+      className={cn('relative inline-block w-fit text-cafe no-underline', grande ? 'px-12 py-9' : 'px-9 py-6', className)}
     >
       <Circulo className="absolute inset-0 h-full w-full text-rosa-tinta" />
-      <span className={cn('font-titulo leading-none', grande ? 'text-[5.5rem]' : 'text-5xl')}>{nota}</span>{' '}
-      <span className={cn('font-mao leading-none whitespace-nowrap', grande ? 'mt-2 text-[1.9rem]' : 'text-[1.6rem]')}>
-        {/* na versão grande a contagem vai na linha de baixo: o "·" fica só no texto (leitor de tela, copiar) */}
-        <span className={cn(grande && 'sr-only')}>· </span>
+      <span className={cn('relative font-titulo leading-none', grande ? 'text-[5.5rem]' : 'text-5xl')}>{nota}</span>
+      <span className={cn('whitespace-pre', grande && 'inline-block w-0 overflow-hidden')}>{' · '}</span>
+      <span
+        className={cn(
+          'relative font-mao leading-none whitespace-nowrap',
+          grande ? 'mt-2 inline-block w-full text-[1.9rem]' : 'text-[1.6rem]',
+        )}
+      >
         {avaliacoes} avaliações no Google
       </span>
     </a>

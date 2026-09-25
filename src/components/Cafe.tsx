@@ -1,5 +1,3 @@
-import { FitaCrepe } from './FitaCrepe'
-
 /*
   A seção mais curta da página, de propósito: uma faixa verde-garrafa,
   a xícara desenhada saindo pela borda de cima e a marca de xícara no "papel".
@@ -51,7 +49,6 @@ export function Cafe() {
             O cafezinho vem junto.
           </h2>
           <p className="mt-3 max-w-[30rem] text-[1.12rem]">Enquanto faz a unha, tem café e conversa boa.</p>
-          <FitaCrepe className="mt-3">texto</FitaCrepe>
         </div>
       </div>
     </section>

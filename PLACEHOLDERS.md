@@ -17,7 +17,7 @@ No **modo apresentação** (`?apresentacao=1`) elas ficam ocultas.
 
 ## Com o responsável pelo site
 
-- [ ] **Avaliações do Google:** já estão coladas as de Shirley e Cristiane. Falta um terceiro bilhete: colar o texto real sem mudar nada, só com o primeiro nome (`src/data/avaliacoes.ts`). No modo apresentação, bilhete vazio não aparece.
+- [ ] **Terceira avaliação (opcional):** o bilhete aparece como [COLAR AVALIAÇÃO REAL] só no modo revisão. Se chegar, colar o texto sem mudar nada, só com o primeiro nome (`src/data/avaliacoes.ts`).
 - [ ] **Link direto do perfil no Google:** hoje é uma busca no Maps (`linkGoogle` em `src/data/avaliacoes.ts`).
 - [ ] **Domínio definitivo:** preencher `url` no JSON-LD (`index.html`). Quando os preços forem confirmados, dá para incluir `priceRange` também.
 
@@ -26,16 +26,8 @@ No **modo apresentação** (`?apresentacao=1`) elas ficam ocultas.
 - Horário: terça a sábado, das 9h às 18h. Vem da bio atual do Instagram, escrita pela Márcia.
 - Serviços e preços: Manicure R$ 35, Pedicure R$ 35, Manicure e Pedicure R$ 60, Esmaltação R$ 15, Plástica dos pés + Pedicure R$ 70. Sobrancelha, cabelo e depilação saíram da lista até a Márcia confirmar (ver acima).
 - Nome da dona: Márcia. Aparece só nos botões e na mensagem do WhatsApp. Sem história nem sobrenome.
-
-## Textos para revisar [REVISAR]
-
-- Hero: "Senta, que o café já tá passando." e o parágrafo logo abaixo.
-- Cardápio: "Escolhe o que vai fazer." e "toca no serviço que ele vai pra comanda".
-- Comanda: a mensagem pronta ("Oi, Márcia! Vim pelo site da Linda Flor. Queria marcar…"). **Manter o "Vim pelo site da Linda Flor"**, porque é assim que a Márcia mede quantas clientes o site traz.
-- Comanda: "Aqui o horário marcado é respeitado."
-- Café: "O cafezinho vem junto." e "Enquanto faz a unha, tem café e conversa boa."
-- Avaliações: "Quem senta na cadeira, volta."
-- Tabela: "Não achou o que queria? Pergunta pra Márcia."
+- Textos aprovados como estão: títulos, parágrafos, mensagens do WhatsApp e "Aqui o horário marcado é respeitado". **Não tirar o "Vim pelo site da Linda Flor"** das mensagens, porque é assim que a Márcia mede quantas clientes o site traz.
+- Avaliações: Shirley e Cristiane. Se não chegar uma terceira, o modo apresentação fica com as duas.
 
 ## Antes de publicar de verdade
 

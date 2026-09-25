@@ -1,6 +1,5 @@
 import { dias, todosServicos, turnos, type DiaId, type TurnoId } from '@/data/servicos'
 import { linkWhatsApp } from '@/data/salao'
-import { FitaCrepe } from '@/components/FitaCrepe'
 import { Botao } from '@/components/ui/button'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { cn } from '@/lib/utils'
@@ -30,7 +29,7 @@ export function Comanda({ className, idTitulo }: { className?: string; idTitulo:
           <p className="pt-1 font-mao text-[1.65rem] leading-tight text-cafe-suave">
             ainda vazia. escolhe na tabela
             <span className="hidden md:inline"> ao lado</span>
-            <span className="md:hidden"> de preços</span>
+            <span className="md:hidden"> acima</span>
           </p>
         ) : (
           <ul className="space-y-0.5">
@@ -90,7 +89,6 @@ export function Comanda({ className, idTitulo }: { className?: string; idTitulo:
       <div className="mt-5">
         <p className="font-mao text-[1.45rem] leading-none text-rosa-tinta">vai assim pra Márcia:</p>
         <p className="mt-2 border-l-2 border-rosa pl-3 text-[0.98rem] leading-snug">{mensagem}</p>
-        <FitaCrepe className="mt-2">texto da mensagem</FitaCrepe>
       </div>
 
       <div className="mt-6 pl-8">
@@ -100,7 +98,7 @@ export function Comanda({ className, idTitulo }: { className?: string; idTitulo:
       </div>
 
       <p className="mt-5 text-[0.95rem] text-cafe-suave">
-        Aqui o horário marcado é respeitado. <FitaCrepe />
+        Aqui o horário marcado é respeitado.
       </p>
     </div>
   )

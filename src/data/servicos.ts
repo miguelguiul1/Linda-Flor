@@ -76,7 +76,7 @@ function juntar(itens: string[]) {
   return `${itens.slice(0, -1).join(', ')} e ${itens[itens.length - 1]}`
 }
 
-/* [REVISAR] tom da mensagem pronta */
+/* Mensagem aprovada. Não tirar o "Vim pelo site da Linda Flor": é como a Márcia mede quantas clientes o site traz. */
 export function montarMensagem(ids: string[], dia: DiaId | null, turno: TurnoId | null) {
   const nomes = todosServicos.filter((s) => ids.includes(s.id)).map((s) => s.naMensagem)
   const oque = nomes.length ? juntar(nomes) : 'um horário'

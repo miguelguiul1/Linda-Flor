@@ -1,5 +1,4 @@
 import { salao, linkWhatsApp } from '@/data/salao'
-import { FitaCrepe } from './FitaCrepe'
 import { NotaGoogle } from './NotaGoogle'
 import { Seta } from './Rabiscos'
 import { Teto } from './Teto'
@@ -50,7 +49,6 @@ export function Hero() {
         <h1 id="titulo-hero" className="max-w-[16ch] font-titulo text-[12.2vw] leading-[0.98] tracking-[-0.01em] md:max-w-[60vw] md:text-[6.5vw]">
           Senta, que o café já tá passando.
         </h1>
-        <FitaCrepe className="mt-2">texto do título e do parágrafo</FitaCrepe>
 
         <div className="mt-6 grid gap-8 md:mt-[2.4vw] md:grid-cols-[minmax(0,34rem)_1fr] md:items-end">
           <div>
