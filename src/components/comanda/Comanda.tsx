@@ -88,14 +88,14 @@ export function Comanda({ className, idTitulo }: { className?: string; idTitulo:
       </fieldset>
 
       <div className="mt-5">
-        <p className="font-mao text-[1.45rem] leading-none text-rosa-tinta">vai assim pro WhatsApp:</p>
+        <p className="font-mao text-[1.45rem] leading-none text-rosa-tinta">vai assim pra Márcia:</p>
         <p className="mt-2 border-l-2 border-rosa pl-3 text-[0.98rem] leading-snug">{mensagem}</p>
         <FitaCrepe className="mt-2">texto da mensagem</FitaCrepe>
       </div>
 
       <div className="mt-6 pl-8">
         <Botao href={linkWhatsApp(mensagem)} target="_blank" rel="noopener" className="w-full">
-          Mandar pro WhatsApp
+          Mandar pra Márcia no WhatsApp
         </Botao>
       </div>
 

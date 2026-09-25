@@ -16,7 +16,7 @@ export const salao = {
   instagram: 'lindaflorbelezaa',
   dias: 'Terça a sábado',
   abre: '9h',
-  fecha: null as string | null, // [CONFIRMAR] Instagram diz 18h, Google diz 19h
+  fecha: '18h', // bio atual do Instagram, escrita pela dona
   google: { nota: '5,0', avaliacoes: 41 },
 } as const
 

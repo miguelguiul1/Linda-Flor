@@ -14,8 +14,7 @@
     />
     <!--
       Dados estruturados para o Google. Só fatos confirmados.
-      Pendentes (ver PLACEHOLDERS.md): "url" (domínio), "openingHoursSpecification" (horário de fechar),
-      "priceRange". Não usar aggregateRating aqui: nota tirada do próprio site não vale para o Google.
+      Pendentes (ver PLACEHOLDERS.md): "url" (domínio) e "priceRange" (preços a confirmar). Não usar aggregateRating aqui: nota tirada do próprio site não vale para o Google.
     -->
     <script type="application/ld+json">
       {
@@ -32,6 +31,14 @@
           "postalCode": "04771-000",
           "addressCountry": "BR"
         },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "09:00",
+            "closes": "18:00"
+          }
+        ],
         "areaServed": "Veleiros, São Paulo",
         "sameAs": ["https://www.instagram.com/lindaflorbelezaa/"]
       }

@@ -1,47 +1,40 @@
 /*
-  Cardápio do salão. Só entra aqui o que se sabe; o resto fica marcado.
-  - confirmado: false → aparece só no modo revisão (no modo apresentação some)
-  - preco: null → "R$ [DESCOBRIR]" no modo revisão; "consulte pelo WhatsApp" no modo apresentação
+  Cardápio do salão. Só entra aqui o que se sabe.
   - naMensagem: como o serviço entra na frase do WhatsApp ("Queria marcar ___")
 */
 
 export type Servico = {
   id: string
   nome: string
-  nota?: string
   preco: string | null
-  confirmado: boolean
   naMensagem: string
+  /* o que o serviço "contém": dois serviços com parte em comum não entram juntos na comanda */
+  partes: string[]
 }
 
 export type Grupo = {
   id: string
   titulo: string // escrito à mão
-  confirmado: boolean
   servicos: Servico[]
 }
 
+// Nomes e preços do post de tabela no Instagram do salão. [CONFIRMAR] se os preços estão atuais.
 export const cardapio: Grupo[] = [
   {
     id: 'maos-pes',
     titulo: 'mãos e pés',
-    confirmado: true,
     servicos: [
-      { id: 'mao', nome: 'Mão', nota: 'manicure', preco: null, confirmado: true, naMensagem: 'mão' },
-      { id: 'pe', nome: 'Pé', nota: 'pedicure', preco: null, confirmado: true, naMensagem: 'pé' },
-      // [CONFIRMAR] se existe o combo e se tem preço próprio
-      { id: 'pe-mao', nome: 'Pé e mão', nota: 'os dois juntos', preco: null, confirmado: false, naMensagem: 'pé e mão' },
-    ],
-  },
-  {
-    // [DESCOBRIR] a cliente ainda vai confirmar se o salão faz estes
-    id: 'outros',
-    titulo: 'o que mais tem?',
-    confirmado: false,
-    servicos: [
-      { id: 'sobrancelha', nome: 'Sobrancelha', preco: null, confirmado: false, naMensagem: 'sobrancelha' },
-      { id: 'cabelo', nome: 'Cabelo', preco: null, confirmado: false, naMensagem: 'cabelo' },
-      { id: 'depilacao', nome: 'Depilação', preco: null, confirmado: false, naMensagem: 'depilação' },
+      { id: 'manicure', nome: 'Manicure', preco: 'R$ 35', naMensagem: 'manicure', partes: ['mao'] },
+      { id: 'pedicure', nome: 'Pedicure', preco: 'R$ 35', naMensagem: 'pedicure', partes: ['pe'] },
+      { id: 'mani-pedi', nome: 'Manicure e Pedicure', preco: 'R$ 60', naMensagem: 'manicure e pedicure', partes: ['mao', 'pe'] },
+      { id: 'esmaltacao', nome: 'Esmaltação', preco: 'R$ 15', naMensagem: 'esmaltação', partes: ['esmaltacao'] },
+      {
+        id: 'plastica-pedicure',
+        nome: 'Plástica dos pés + Pedicure',
+        preco: 'R$ 70',
+        naMensagem: 'plástica dos pés com pedicure',
+        partes: ['pe', 'plastica'],
+      },
     ],
   },
 ]
@@ -66,14 +59,16 @@ export const turnos = [
 export type DiaId = (typeof dias)[number]['id']
 export type TurnoId = (typeof turnos)[number]['id']
 
-/* "Pé e mão" já é mão + pé: marcar um tira os outros, pra mensagem não sair "pé e pé e mão". */
-const combos: Record<string, string[]> = { 'pe-mao': ['mao', 'pe'] }
-
+/* Marcar um serviço tira os que têm parte em comum com ele
+   (ex.: "Manicure e Pedicure" tira "Manicure" e "Pedicure"), pra mensagem não sair repetida. */
 export function alternarServico(itens: string[], id: string) {
   if (itens.includes(id)) return itens.filter((x) => x !== id)
-  const partes = combos[id] ?? []
-  const combosQueContem = Object.keys(combos).filter((c) => combos[c].includes(id))
-  return [...itens.filter((x) => !partes.includes(x) && !combosQueContem.includes(x)), id]
+  const partes = todosServicos.find((s) => s.id === id)?.partes ?? []
+  const semConflito = itens.filter((x) => {
+    const outro = todosServicos.find((s) => s.id === x)
+    return !outro?.partes.some((p) => partes.includes(p))
+  })
+  return [...semConflito, id]
 }
 
 function juntar(itens: string[]) {
@@ -88,5 +83,5 @@ export function montarMensagem(ids: string[], dia: DiaId | null, turno: TurnoId 
   const quando = [dias.find((d) => d.id === dia)?.frase, turnos.find((t) => t.id === turno)?.frase]
     .filter(Boolean)
     .join(' ')
-  return `Oi! Vim pelo site da Linda Flor. Queria marcar ${oque}${quando ? ` ${quando}` : ''}. Tem vaga?`
+  return `Oi, Márcia! Vim pelo site da Linda Flor. Queria marcar ${oque}${quando ? ` ${quando}` : ''}. Tem vaga?`
 }

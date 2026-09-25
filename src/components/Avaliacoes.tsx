@@ -1,9 +1,10 @@
 import { avaliacoes, linkGoogle } from '@/data/avaliacoes'
-import { salao } from '@/data/salao'
 import { modoRevisao } from '@/lib/modo'
 import { cn } from '@/lib/utils'
 import { FitaCrepe } from './FitaCrepe'
-import { Circulo, Seta } from './Rabiscos'
+import { FotoColada } from './FotoColada'
+import { NotaGoogle } from './NotaGoogle'
+import { Seta } from './Rabiscos'
 
 /*
   Bilhetes presos no espelho, inclinados e um pouco por cima um do outro.
@@ -38,27 +39,18 @@ function Bilhete({ texto, nome, i }: { texto: string | null; nome: string | null
 export function Avaliacoes() {
   // no modo apresentação só entram as avaliações já coladas
   const bilhetes = avaliacoes.filter((a) => modoRevisao || a.texto)
+  const temBilhete = bilhetes.length > 0
 
   return (
     <section className="relative px-4 pt-24 pb-20 md:px-[4vw] md:pt-[9vw] md:pb-[8vw]" aria-labelledby="titulo-avaliacoes">
-      <div
-        className={cn(
-          'grid gap-12 md:gap-[4vw]',
-          bilhetes.length > 0 ? 'md:grid-cols-[minmax(16rem,26vw)_1fr]' : 'md:mx-auto md:max-w-5xl',
-        )}
-      >
-        <div className={cn('md:pt-6', bilhetes.length === 0 && 'md:grid md:grid-cols-[1fr_auto] md:items-center md:gap-x-[6vw]')}>
+      <div className="grid gap-12 md:grid-cols-[minmax(16rem,26vw)_1fr] md:gap-[4vw]">
+        <div className="md:pt-6">
           <h2 id="titulo-avaliacoes" className="font-titulo text-[2.3rem] leading-[1.02] md:text-[3.2vw]">
             Quem senta na cadeira, volta.
           </h2>
           <FitaCrepe className="mt-2">texto</FitaCrepe>
 
-          <div>
-          <a href={linkGoogle} target="_blank" rel="noopener" className="group/nota relative mt-8 inline-block px-12 py-8 text-cafe no-underline">
-            <Circulo className="absolute inset-0 h-full w-full text-rosa-tinta" />
-            <span className="block font-titulo text-[5.5rem] leading-[0.9]">{salao.google.nota}</span>
-            <span className="mt-2 block font-mao text-[1.8rem] leading-none">{salao.google.avaliacoes} avaliações no Google</span>
-          </a>
+          <NotaGoogle grande className="mt-8 -rotate-1" />
           <p className="mt-3">
             <a
               href={linkGoogle}
@@ -70,16 +62,34 @@ export function Avaliacoes() {
               <Seta className="w-7 rotate-[35deg]" />
             </a>
           </p>
-          </div>
         </div>
 
-        {bilhetes.length > 0 && (
-          <div className="flex flex-col items-start md:flex-row md:items-start md:pt-10">
-            {bilhetes.map((a, i) => (
-              <Bilhete key={i} texto={a.texto} nome={a.nome} i={i} />
-            ))}
+        <div>
+          {temBilhete && (
+            <div className="flex flex-col items-start md:flex-row md:items-start md:pt-10">
+              {bilhetes.map((a, i) => (
+                <Bilhete key={i} texto={a.texto} nome={a.nome} i={i} />
+              ))}
+            </div>
+          )}
+
+          {/* trabalhos de verdade, colados na parede ao lado dos recados */}
+          <div className={cn('relative flex items-start justify-end', temBilhete ? 'mt-6 md:mt-10 md:pr-[4vw]' : 'md:pr-[6vw]')}>
+            <FotoColada
+              foto="rosa"
+              proporcao="1 / 1.05"
+              foco="center 30%"
+              className={cn('w-[52%] rotate-3', temBilhete ? 'md:w-[14vw]' : 'md:w-[19vw]')}
+            />
+            <FotoColada
+              foto="azul"
+              fita="cantos"
+              proporcao="1 / 1"
+              foco="center 22%"
+              className={cn('mt-14 -ml-8 w-[42%] -rotate-[7deg] md:-ml-[2vw]', temBilhete ? 'md:mt-[6vw] md:w-[11vw]' : 'md:mt-[8vw] md:w-[15vw]')}
+            />
           </div>
-        )}
+        </div>
       </div>
     </section>
   )

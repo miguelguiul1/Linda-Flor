@@ -12,7 +12,7 @@ export default function App() {
     <ComandaProvider>
       <FiltrosDesenho />
       <Forro />
-      <main>
+      <main className="overflow-x-clip">
         <Hero />
         <Cardapio />
         <Cafe />

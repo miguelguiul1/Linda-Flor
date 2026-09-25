@@ -1,8 +1,7 @@
-import { linkGoogle } from '@/data/avaliacoes'
 import { salao, linkWhatsApp } from '@/data/salao'
-import { modoRevisao } from '@/lib/modo'
 import { FitaCrepe } from './FitaCrepe'
-import { Circulo, Seta } from './Rabiscos'
+import { NotaGoogle } from './NotaGoogle'
+import { Seta } from './Rabiscos'
 import { Teto } from './Teto'
 import { Botao } from './ui/button'
 
@@ -61,13 +60,7 @@ export function Hero() {
             <p className="mt-3 text-[0.98rem] text-cafe-suave">
               {salao.endereco.rua} · {salao.endereco.bairro}
               <br />
-              {salao.dias}, {modoRevisao ? (
-                <>
-                  das {salao.abre} às 18h ou 19h <FitaCrepe tipo="CONFIRMAR">horário de fechar</FitaCrepe>
-                </>
-              ) : (
-                <>a partir das {salao.abre}</>
-              )}
+              {salao.dias}, das {salao.abre} às {salao.fecha}
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-5 pl-7">
@@ -75,31 +68,18 @@ export function Hero() {
                 Marcar meu horário
               </Botao>
               <a
-                href={linkWhatsApp('Oi! Vim pelo site e queria marcar um horário.')}
+                href={linkWhatsApp('Oi, Márcia! Vim pelo site da Linda Flor e queria marcar um horário.')}
                 target="_blank"
                 rel="noopener"
                 className="inline-flex min-h-11 items-center font-bold text-rosa-tinta underline decoration-2 underline-offset-4"
               >
-                Falar no WhatsApp
+                Falar com a Márcia
               </a>
             </div>
           </div>
 
           {/* nota do Google, circulada à caneta */}
-          <a
-            href={linkGoogle}
-            target="_blank"
-            rel="noopener"
-            className="relative w-fit rotate-2 justify-self-start px-10 py-6 text-cafe no-underline md:mr-[6vw] md:justify-self-end"
-          >
-            <Circulo className="absolute inset-0 h-full w-full text-rosa-tinta" />
-            <span className="block font-titulo text-5xl leading-none">
-              {salao.google.nota}
-            </span>
-            <span className="mt-1 block font-mao text-[1.5rem] leading-none">
-              {salao.google.avaliacoes} avaliações no Google
-            </span>
-          </a>
+          <NotaGoogle className="rotate-2 justify-self-start md:mr-[6vw] md:justify-self-end" />
         </div>
       </div>
     </section>

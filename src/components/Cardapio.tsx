@@ -1,10 +1,11 @@
 import { cardapio, type Servico } from '@/data/servicos'
 import { linkWhatsApp } from '@/data/salao'
-import { modoApresentacao, modoRevisao } from '@/lib/modo'
+import { modoRevisao } from '@/lib/modo'
 import { cn } from '@/lib/utils'
 import { Comanda } from './comanda/Comanda'
 import { useComanda } from './comanda/contexto'
 import { FitaCrepe } from './FitaCrepe'
+import { FotoColada } from './FotoColada'
 import { Seta } from './Rabiscos'
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from './ui/sheet'
 
@@ -27,15 +28,6 @@ function Marca({ marcado }: { marcado: boolean }) {
   )
 }
 
-function Preco({ preco }: { preco: string | null }) {
-  if (modoApresentacao) return null
-  return (
-    <span className="mb-0.5 shrink-0 font-texto text-[1.05rem] font-bold text-cafe-suave tabular-nums">
-      {preco ?? 'R$ ––'}
-    </span>
-  )
-}
-
 function Linha({ s }: { s: Servico }) {
   const { itens, alternar } = useComanda()
   const marcado = itens.includes(s.id)
@@ -49,35 +41,26 @@ function Linha({ s }: { s: Servico }) {
       >
         <Marca marcado={marcado} />
         <span className="flex min-w-0 flex-1 items-end gap-2">
-          <span className="font-titulo text-[1.65rem] leading-none md:text-[1.9rem]">
-            {s.nome}
-            {s.nota && <span className="mt-1 block font-texto text-[0.9rem] text-cafe-suave md:mt-0 md:ml-2 md:inline">{s.nota}</span>}
+          <span className="font-titulo text-[1.55rem] leading-[1.05] md:text-[1.9rem]">
+            {/* o "+" da Gloock é miudinho: vai na letra do texto */}
+            {s.nome.split(' + ').map((parte, i) => (
+              <span key={parte}>
+                {i > 0 && <span className="mx-1 align-[0.08em] font-texto text-[0.75em] font-bold">+</span>}
+                {parte}
+              </span>
+            ))}
           </span>
           <span className="mb-1.5 min-w-6 flex-1 border-b-2 border-dotted border-cafe/50" />
         </span>
-        <Preco preco={s.preco} />
+        {s.preco && (
+          <span className="mb-0.5 shrink-0 font-texto text-[1.1rem] font-bold whitespace-nowrap tabular-nums">{s.preco}</span>
+        )}
       </button>
-      {!s.confirmado && <FitaCrepe tipo="CONFIRMAR" className="mb-1 ml-10">se tem esse serviço e o preço</FitaCrepe>}
-    </li>
-  )
-}
-
-/* Serviços que ainda não se sabe se o salão faz: aparecem como pergunta, sem dar pra escolher. */
-function Pergunta({ s }: { s: Servico }) {
-  return (
-    <li className="flex min-h-12 items-end gap-3 py-1.5 text-cafe-suave">
-      <span className="w-7 shrink-0 text-center font-mao text-[1.8rem] leading-none">?</span>
-      <span className="font-titulo text-[1.45rem] leading-none">{s.nome}</span>
-      <span className="mb-1.5 flex-1 border-b-2 border-dotted border-cafe/25" />
     </li>
   )
 }
 
 function Tabela() {
-  const grupos = cardapio
-    .filter((g) => g.confirmado || modoRevisao)
-    .map((g) => ({ ...g, servicos: g.servicos.filter((s) => s.confirmado || modoRevisao) }))
-
   return (
     <div className="relative md:-rotate-[0.6deg]">
       {/* fita crepe segurando a tabela na parede */}
@@ -87,34 +70,32 @@ function Tabela() {
       <div className="border-2 border-cafe bg-[#fbf7ef] px-5 pt-8 pb-7 md:px-10 md:pt-10">
         {modoRevisao && (
           <p className="-mt-2 mb-4">
-            <FitaCrepe tipo="DESCOBRIR">lista completa de serviços e todos os preços</FitaCrepe>
+            <FitaCrepe tipo="CONFIRMAR">se os preços estão atuais (vieram de um post do Instagram)</FitaCrepe>
           </p>
         )}
 
-        {grupos.map((g) => (
+        {cardapio.map((g) => (
           <div key={g.id} className="mt-4 first:mt-0">
-            <h3 className="font-mao text-[2.1rem] leading-none text-rosa-tinta">
-              {g.titulo}
-              {!g.confirmado && <FitaCrepe tipo="DESCOBRIR" className="ml-3 align-middle">o salão faz estes?</FitaCrepe>}
-            </h3>
+            <h3 className="font-mao text-[2.1rem] leading-none text-rosa-tinta">{g.titulo}</h3>
             <ul className="mt-1">
-              {g.servicos.map((s) => (g.confirmado ? <Linha key={s.id} s={s} /> : <Pergunta key={s.id} s={s} />))}
+              {g.servicos.map((s) => (
+                <Linha key={s.id} s={s} />
+              ))}
             </ul>
           </div>
         ))}
 
         <p className="mt-6 border-t border-dashed border-cafe/40 pt-4 text-[0.98rem] text-cafe-suave">
-          {modoApresentacao ? (
-            <>
-              Preço? Consulte pelo{' '}
-              <a href={linkWhatsApp('Oi! Queria saber os preços, por favor.')} target="_blank" rel="noopener" className="font-bold text-rosa-tinta underline decoration-2 underline-offset-4">
-                WhatsApp
-              </a>
-              .
-            </>
-          ) : (
-            <>Não achou o que queria? Pergunta no WhatsApp. <FitaCrepe /></>
-          )}
+          Não achou o que queria?{' '}
+          <a
+            href={linkWhatsApp('Oi, Márcia! Vim pelo site da Linda Flor e queria tirar uma dúvida.')}
+            target="_blank"
+            rel="noopener"
+            className="font-bold text-rosa-tinta underline decoration-2 underline-offset-4"
+          >
+            Pergunta pra Márcia
+          </a>
+          . <FitaCrepe />
         </p>
       </div>
     </div>
@@ -129,12 +110,12 @@ function BarraCelular() {
     <>
       <div className="fixed inset-x-0 bottom-0 z-40 flex items-stretch border-t-2 border-cafe bg-papel pb-[env(safe-area-inset-bottom)] md:hidden">
         <a
-          href={linkWhatsApp('Oi! Vim pelo site e queria marcar um horário.')}
+          href={linkWhatsApp('Oi, Márcia! Vim pelo site da Linda Flor e queria marcar um horário.')}
           target="_blank"
           rel="noopener"
           className="flex min-h-14 flex-1 items-center justify-center font-bold text-rosa-tinta underline decoration-2 underline-offset-4"
         >
-          Falar no WhatsApp
+          Falar com a Márcia
         </a>
         <button
           type="button"
@@ -167,7 +148,7 @@ export function Cardapio() {
     <section id="cardapio" className="relative scroll-mt-4 px-4 pt-16 pb-4 md:px-[4vw] md:pt-[7vw] md:pb-0" aria-labelledby="titulo-cardapio">
       <div className="grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(19rem,24rem)] md:gap-[5vw]">
         <div>
-          <div className="mb-10 md:mb-14 md:pl-[6vw]">
+          <div className="relative mb-10 md:mb-14 md:pl-[6vw]">
             <h2 id="titulo-cardapio" className="font-titulo text-[2.6rem] leading-[1.02] md:text-[4.2vw]">
               Escolhe o que
               <br />
@@ -178,8 +159,20 @@ export function Cardapio() {
               <Seta className="mt-1 hidden w-12 rotate-[75deg] md:block" />
             </p>
             <FitaCrepe className="mt-1">texto</FitaCrepe>
+
+            {/* fotos coladas na parede, por cima da borda da tabela (desktop) */}
+            <FotoColada foto="verde" proporcao="1 / 0.92" foco="center 25%" className="absolute -top-[3vw] right-[1vw] z-20 hidden w-[14vw] rotate-[5deg] md:block" />
+            <FotoColada foto="branco" fita="cantos" className="absolute top-[0.5vw] right-[15.5vw] z-20 hidden w-[9vw] -rotate-[8deg] md:block" />
           </div>
+
+          {/* no celular: duas fotos meio encavaladas antes da tabela */}
+          <div className="relative z-20 -mt-2 mb-[-1.5rem] flex items-start md:hidden">
+            <FotoColada foto="verde" proporcao="1 / 0.92" foco="center 25%" className="ml-2 w-[50%] -rotate-3" />
+            <FotoColada foto="branco" fita="cantos" className="mt-8 -ml-6 w-[40%] rotate-6" />
+          </div>
+
           <Tabela />
+          <FotoColada foto="vinho" className="relative z-10 mt-[-1.5rem] ml-auto w-[46%] rotate-3 md:mt-[-3vw] md:mr-[10%] md:w-[12vw] md:-rotate-[4deg]" />
         </div>
 
         {/* comanda presa ao lado (desktop) */}

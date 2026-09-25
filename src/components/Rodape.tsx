@@ -1,7 +1,5 @@
 import { salao, linkWhatsApp } from '@/data/salao'
-import { modoRevisao } from '@/lib/modo'
 import type { ReactNode } from 'react'
-import { FitaCrepe } from './FitaCrepe'
 
 /*
   Rodapé como a primeira página da agenda do salão: espiral em cima, margem rosa,
@@ -28,7 +26,7 @@ function Linha({ rotulo, children }: { rotulo: string; children: ReactNode }) {
 export function Rodape() {
   const { endereco } = salao
   return (
-    <footer className="px-4 pt-6 pb-24 md:px-[4vw] md:pb-16">
+    <footer className="overflow-x-clip px-4 pt-6 pb-24 md:px-[4vw] md:pb-16">
       <div className="relative mx-auto max-w-4xl border-2 border-cafe bg-[#fffdf8] md:rotate-[-0.4deg]">
         {/* espiral da agenda */}
         <div className="absolute inset-x-6 -top-3 flex justify-between" aria-hidden="true">
@@ -50,18 +48,11 @@ export function Rodape() {
               {endereco.rua}, {endereco.bairro} · {endereco.cidade}/{endereco.uf}
             </Linha>
             <Linha rotulo="horário">
-              {salao.dias},{' '}
-              {modoRevisao ? (
-                <>
-                  das {salao.abre} às 18h ou 19h <FitaCrepe tipo="CONFIRMAR" />
-                </>
-              ) : (
-                <>a partir das {salao.abre}</>
-              )}
+              {salao.dias}, das {salao.abre} às {salao.fecha}
             </Linha>
             <Linha rotulo="marcar">
               <a
-                href={linkWhatsApp('Oi! Vim pelo site da Linda Flor e queria marcar um horário.')}
+                href={linkWhatsApp('Oi, Márcia! Vim pelo site da Linda Flor e queria marcar um horário.')}
                 target="_blank"
                 rel="noopener"
                 className="inline-flex min-h-11 items-center font-bold text-rosa-tinta underline decoration-2 underline-offset-4"
